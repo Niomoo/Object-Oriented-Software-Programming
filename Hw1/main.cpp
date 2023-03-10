@@ -125,18 +125,18 @@ class System {
     vector<Passenger> passengerList;        // list of passenger
 
     public:
-        createBus(int);                     // create a new bus route
-        createPassenger(string, string);    // create a new passenger
-        bookTicket(string, int);            // create booking record
-        showBusBooking(int);                // show the booking record
-        showPassengerTicket(string);        // show the passenger tickets
+        void createBus(int);                     // create a new bus route
+        void createPassenger(string, string);    // create a new passenger
+        void bookTicket(string, int);            // create booking record
+        void showBusBooking(int);                // show the booking record
+        void showPassengerTicket(string);        // show the passenger tickets
 };
 
 /**
  * @brief Create a bus class
  * @param route route number of the bus
  */
-System::createBus(int route) {
+void System::createBus(int route) {
     Bus bus(route);
     busList.push_back(bus);
 }
@@ -146,7 +146,7 @@ System::createBus(int route) {
  * @param name name of the passenger
  * @param phone phone number of the passenger 
  */
-System::createPassenger(string name, string phone) {
+void System::createPassenger(string name, string phone) {
     Passenger passenger(name, phone);
     passengerList.push_back(passenger);
 }
@@ -156,7 +156,7 @@ System::createPassenger(string name, string phone) {
  * @param name name of the passenger
  * @param route route number of the bus
  */
-System::bookTicket(string name, int route) {
+void System::bookTicket(string name, int route) {
     for(auto & passenger: passengerList) {
         if(passenger.getName() == name) {
             for(auto & bus: busList) {
@@ -176,7 +176,7 @@ System::bookTicket(string name, int route) {
  * @brief Print the passenger of the bus
  * @param route route number of the bus
  */
-System::showBusBooking(int route) {
+void System::showBusBooking(int route) {
     for(auto bus: busList) {
         if(bus.getRoute() == route) {
             bus.showPassenger();
@@ -188,7 +188,7 @@ System::showBusBooking(int route) {
  * @brief Print the ticket booked by the passenger
  * @param name name of the passenger
  */
-System::showPassengerTicket(string name) {
+void System::showPassengerTicket(string name) {
     for(auto passenger: passengerList) {
         if(passenger.getName() == name) {
             passenger.showBooking();
