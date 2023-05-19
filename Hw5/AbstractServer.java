@@ -319,7 +319,7 @@ public abstract class AbstractServer implements Runnable
    * 這代表 server 可能會花到設定的超時時間才會真正停止。
    * server 必須停止並重新啟動以讓超時的改動生效。
    *
-   * @param timeout the timeout time in ms.
+   * @param timeout the timeout time in ms. 超時的時間，單位為毫秒
    */
   final public void setTimeout(int timeout)
   {
