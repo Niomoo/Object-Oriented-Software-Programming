@@ -162,7 +162,7 @@ public abstract class AbstractClient implements Runnable {
 	 * Reset the object output stream so we can use the same
 	 * buffer repeatedly. This would not normally be used, but is necessary
      * in some circumstances when Java refuses to send data that it thinks has been sent.
-	 * 重置物件輸出串流以讓我們能重複使用同一緩衝區。通常不會使用此方法，但在某些情況下，當Java
+	 * 重置物件輸出串流以讓我們能重複使用同一緩衝區。通常不會使用此方法，但在某些情況下，當 Java
 	 * 認為發送過數據而拒絕再發送時，這方法是必要的。
 	 */
 	final public void forceResetAfterSend() throws IOException {

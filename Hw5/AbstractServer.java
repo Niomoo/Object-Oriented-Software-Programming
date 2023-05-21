@@ -21,8 +21,8 @@ import java.io.*;
  *
  * Method <code> handleMessageFromClient </code> must be defined by
  * a concrete subclass. Several other hook methods may also be
- * overriden.<p>
- * handeleMessageFromClient 須被具體子類別定義。而其他幾個 hook 也可能被覆寫。
+ * overridden.<p>
+ * handleMessageFromClient 須被具體子類別定義。而其他幾個 hook 也可能被覆寫。
  *
  * Several public service methods are provided to applications that use
  * this framework, and several hook methods are also available<p>
@@ -331,8 +331,10 @@ public abstract class AbstractServer implements Runnable
    * operating system. The default is 20.
    * The server must be closed and restarted for the backlog
    * change to be in effect.
+   * 設定作業系統接受的最大等待連接數量。預設為 20。
+   * server 必須關閉並重新啟動以讓 backlog 的改動生效。
    *
-   * @param backlog the maximum number of connections.
+   * @param backlog the maximum number of connections. 最大連線數。
    */
   final public void setBacklog(int backlog)
   {
@@ -344,25 +346,30 @@ public abstract class AbstractServer implements Runnable
   /**
    * Runs the listening thread that allows clients to connect.
    * Not to be called.
+   * 執行允許客戶端連線的監聽執行緒。不需要被呼叫。
    */
   final public void run()
   {
     // call the hook method to notify that the server is starting
+    // 呼叫 hook 函式來通知 server 已啟動。
     serverStarted();
 
     try
     {
       // Repeatedly waits for a new client connection, accepts it, and
       // starts a new thread to handle data exchange.
+      // 重複等待新 client 的連線、接受、並啟動一個新執行緒以處理資料交換的過程。
       while(!readyToStop)
       {
         try
         {
           // Wait here for new connection attempts, or a timeout
+          // 等待新的連接嘗試，或發生超時。
           Socket clientSocket = serverSocket.accept();
 
           // When a client is accepted, create a thread to handle
           // the data exchange, then add it to thread group
+          // 當 client 被接受，創造一個執行緒處理資料交換，然後加進執行緒群組中。
 
           synchronized(this)
           {
@@ -374,10 +381,13 @@ public abstract class AbstractServer implements Runnable
         {
           // This will be thrown when a timeout occurs.
           // The server will continue to listen if not ready to stop.
+          // 當超時發生時會拋出例外。
+          // 若尚未準備停止，server 會持續監聽。
         }
       }
 
       // call the hook method to notify that the server has stopped
+      // 呼叫 hook 函式以通知 server 已經停止。
       serverStopped();
     }
     catch (IOException exception)
@@ -385,6 +395,7 @@ public abstract class AbstractServer implements Runnable
       if (!readyToStop)
       {
         // Closing the socket must have thrown a SocketException
+        // 關閉 socket 時必須拋出 SocketException 的例外。
         listeningException(exception);
       }
       else
@@ -405,6 +416,7 @@ public abstract class AbstractServer implements Runnable
   /**
    * Hook method called each time a new client connection is
    * accepted. The default implementation does nothing.
+   * 每次有新的 client 連線被接受時呼叫的 hook 函式。預設不會執行任何動作。
    * @param client the connection connected to the client.
    */
   protected void clientConnected(ConnectionToClient client) {}
@@ -413,6 +425,8 @@ public abstract class AbstractServer implements Runnable
    * Hook method called each time a client disconnects.
    * The default implementation does nothing. The method
    * may be overridden by subclasses but should remains synchronized.
+   * 每次 client 離現實呼叫的 hook 函式。預設不會執行任何動作。
+   * 此函式可以被子類別覆蓋，但應該保持同步。
    *
    * @param client the connection with the client.
    */
@@ -424,8 +438,10 @@ public abstract class AbstractServer implements Runnable
    * ConnectionToClient thread.
    * The method may be overridden by subclasses but should remains
    * synchronized.
+   * 每次 ConnectionToClient 執行緒拋出例外時呼叫的 hook 函式。
+   * 此函式可以被子類別覆蓋，但應該保持同步。
    *
-   * @param client the client that raised the exception.
+   * @param client    the client that raised the exception.
    * @param Throwable the exception thrown.
    */
   synchronized protected void clientException(
@@ -435,7 +451,9 @@ public abstract class AbstractServer implements Runnable
    * Hook method called when the server stops accepting
    * connections because an exception has been raised.
    * The default implementation does nothing.
-   * This method may be overriden by subclasses.
+   * This method may be overridden by subclasses.
+   * 當 server 因為例外發生而停止接受連線時呼叫的 hook 函式。
+   * 預設不會執行任何動作。此函式可以被子類別覆蓋。
    *
    * @param exception the exception raised.
    */
@@ -445,21 +463,27 @@ public abstract class AbstractServer implements Runnable
    * Hook method called when the server starts listening for
    * connections.  The default implementation does nothing.
    * The method may be overridden by subclasses.
+   * 當 server 開始監聽時呼叫的 hook 函式。預設不會執行任何動作。
+   * 此函式可以被子類別覆蓋。
    */
   protected void serverStarted() {}
 
   /**
    * Hook method called when the server stops accepting
-   * connections.  The default implementation
-   * does nothing. This method may be overriden by subclasses.
+   * connections. The default implementation
+   * does nothing. This method may be overridden by subclasses.
+   * 當 server 停止接受連線時呼叫的 hook 函式。預設不會執行任何動作。
+   * 此函式可以被子類別覆蓋。
    */
   protected void serverStopped() {}
 
   /**
-   * Hook method called when the server is clased.
+   * Hook method called when the server is closed.
    * The default implementation does nothing. This method may be
-   * overriden by subclasses. When the server is closed while still
+   * overridden by subclasses. When the server is closed while still
    * listening, serverStopped() will also be called.
+   * 當 server 關閉時呼叫的 hook 函式。預設不會執行任何動作。
+   * 此函式可以被子類別覆蓋。當 server 還在監聽時關閉 server，此函式也會被呼叫。
    */
   protected void serverClosed() {}
 
@@ -468,11 +492,13 @@ public abstract class AbstractServer implements Runnable
    * This MUST be implemented by subclasses, who should respond to
    * messages.
    * This method is called by a synchronized method so it is also
-   * implcitly synchronized.
+   * implicitly synchronized.
+   * 處理從一個 client 發送到 server 的指令。必須由負責該訊息的子類別實作。
+   * 此函式由一個同步的函式呼叫，因此它也會隱性同步。
    *
-   * @param msg   the message sent.
+   * @param msg   the message sent. 發送的訊息。
    * @param client the connection connected to the client that
-   *  sent the message.
+   *  sent the message. 發送訊息的連線用戶端。
    */
   protected abstract void handleMessageFromClient(
     Object msg, ConnectionToClient client);
@@ -487,6 +513,9 @@ public abstract class AbstractServer implements Runnable
    * This method is synchronized to ensure that whatever effects it has
    * do not conflict with work being done by other threads. The method
    * simply calls the <code>handleMessageFromClient</code> slot method.
+   * 接收從一個 client 發送到 server 的指令。由正在監視來自 server 訊息的
+   * ConnectionToClient 實例中的 run 函式所呼叫。此函式是同步的以確保它的影響不
+   * 會和其他執行緒所做的工作衝突。此函式單純呼叫 handleMessageFromClient 函式。
    *
    * @param msg   the message sent.
    * @param client the connection connected to the client that
