@@ -49,7 +49,31 @@ public class EchoServer extends AbstractServer
     (Object msg, ConnectionToClient client)
   {
     System.out.println("Message received: " + msg + " from " + client);
-    this.sendToAllClients(msg);
+    String[] num = ((String) msg).split(" ");
+    int num1 = Integer.parseInt(num[0]);
+    int num2 = Integer.parseInt(num[2]);
+    char op = num[1].charAt(0);
+    Double result = 0.0;
+    String output = "";
+    switch(op) {
+      case '1': 
+        result = (double) (num1 + num2); 
+        output = "+";
+        break;
+      case '2':
+        result = (double) (num1 - num2);
+        output = "-";
+        break;
+      case '3':
+        result = (double) (num1 * num2);
+        output = "*";
+        break;
+      case '4':
+        result = Double.valueOf(num1) / Double.valueOf(num2);
+        output = "/";
+        break;
+    }
+    this.sendToAllClients(Integer.toString(num1) + " " + output + " " + Integer.toString(num2) + " = " + result);
   }
     
   /**
