@@ -5,45 +5,24 @@ Design a flight booking system using object-oriented programming.
 ![](https://i.imgur.com/GRomGFN.png)
 ## Description
 ### Objects
-- Airline
-    - addPerson()
-    - addRegularFlight()
-    - getRegularFlight()
-    - getPeople()
-- Person
-    - getName()
-    - getIdNumber()
-    - get_employee_role()
-    - get_passenger_role()
-    - addPersonRole()
-    - linkAirline()
-- PersonRole
-    - linkPerson()
-    - getPerson()
+- Airplane
+    - addLinkToSpecificFlight()
+    - deleteLinkToSpecificFlight()
+- Booking
+    - Booking()
 - EmployeeRole
-    - getJubFunction()
-    - addSubordinate()
-    - addSupervisor()
-    - linkSupervisor()
-    - addSpecificFlight()
+    - getName()
 - PassengerRole
-    - addBooking()
-    - bookSpecificFlight()
-    - printBookings()
-    - cancelBooking()
-- RegularFlight
-    - getTime()
-    - getFlightNumber()
-    - getSpecificFlights()
-    - addSpecificFlight()
-    - linkAirline()
+    - makeBooking()
+    - addLinkToBooking()
 - SpecificFlight
-    - getDate()
-    - getRegularFlight()
-    - addBooking()
-    - linkRegularFlight()
-    - addEmployeeRole()
-    - cancelBooking()
+    - specifyAirplane()
+    - createFlightLog()
+    - changeAirplane()
+    - findCrewMember()
+    - addLinkToBooking()
+- FlightLog
+    - FlightLog()
 
 
 ## Results

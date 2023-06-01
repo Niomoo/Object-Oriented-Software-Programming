@@ -1,18 +1,15 @@
-#include "airline.h"
+#include "airplane.h"
 #include "booking.h"
 #include "employee_role.h"
 #include "passenger_role.h"
-#include "person.h"
-#include "person_role.h"
-#include "regular_flight.h"
 #include "specific_flight.h"
+#include "flight_log.h"
 
 using namespace std;
 
 int main()
 {
-    Airline *eva_air = new Airline("EVA Air");
-    RegularFlight *flight1 = new RegularFlight("10:25", 1523, eva_air);
+    Airplane *eva_air = new Airplane("EVA Air");
     SpecificFlight *flight1_0501 = new SpecificFlight("2023-05-01", flight1);
     SpecificFlight *flight1_0502 = new SpecificFlight("2023-05-02", flight1);
     SpecificFlight *flight1_0503 = new SpecificFlight("2023-05-03", flight1);
