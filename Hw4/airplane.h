@@ -14,20 +14,23 @@ class SpecificFlight;
  */
 class Airplane {
 public:
+  Airplane(string flightID) : flightID {flightID} { }
   void addLinkToSpecificFlight(SpecificFlight *flight)
   {
     specificFlights.push_back(flight);
   }
   void deleteLinkToSpecificFlight(SpecificFlight *flight)
   {
-    specificFlights.remove(flight);
+    for(auto i = specificFlights.begin(); i != specificFlights.end(); ++i) {
+      if(*i == flight) {
+        specificFlights.erase(i);
+        break;
+      }
+    }
   }
 
 private:
-  string registrationNumber;
-  string model;
-  int seatCapacity;
-  int bookedSeats;
+  string flightID;
   vector<SpecificFlight *> specificFlights;
 };
 

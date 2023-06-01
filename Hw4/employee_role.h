@@ -16,14 +16,14 @@ class EmployeeRole {
  public:
 
   // constructor
-  EmployeeRole(string jobFunction) : jobFunction{ jobFunction } {}
+  EmployeeRole(string name) : name{ name } {}
 
   // return the job of the employee
-  string getJobFunction() { return jobFunction; }
+  string getName() { return name; }
 
 
  private:
-  string jobFunction{""};
+  string name;
   vector<SpecificFlight*> specific_flights{};
 };
 

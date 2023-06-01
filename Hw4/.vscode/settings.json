@@ -1,9 +1,18 @@
 {
     "files.associations": {
-        "*.ejs": "html",
-        "xstring": "cpp"
+        "iosfwd": "cpp",
+        "ostream": "cpp",
+        "iostream": "cpp",
+        "*.tcc": "cpp",
+        "unordered_map": "cpp",
+        "unordered_set": "cpp",
+        "string_view": "cpp",
+        "cmath": "cpp",
+        "iomanip": "cpp",
+        "numeric": "cpp",
+        "chrono": "cpp",
+        "limits": "cpp",
+        "valarray": "cpp"
     },
-    "cSpell.words": [
-        "FLIGHTLOG"
-    ],
+    "C_Cpp.errorSquiggles": "Disabled",
 }

@@ -14,6 +14,7 @@ public:
         this->departureTime = flight->departureTime;
         this->arrivalTime = flight->arrivalTime;
         this->airplane = flight->airplane;
+        this->specificFlight = flight;
     }
 
 private:
@@ -23,6 +24,7 @@ private:
     string departureTime;
     string arrivalTime;
     Airplane *airplane;
+    SpecificFlight *specificFlight;
 };
 
 #endif /* FLIGHTLOG_H */
