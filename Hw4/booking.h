@@ -1,8 +1,8 @@
 #ifndef BOOKING_H
 #define BOOKING_H
 
-class PassengerRole;
 class SpecificFlight;
+class PassengerRole;
 
 class Booking {
  public:
@@ -15,6 +15,7 @@ class Booking {
   PassengerRole* getPassengerRole() const { return passenger; }
   SpecificFlight* getSpecificFlight() const { return flight; }
   int getSeatNumber() const { return seatNumber; }
+
 
  private:
   int seatNumber;

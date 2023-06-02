@@ -1,7 +1,7 @@
 #include "airplane.h"
-#include "booking.h"
-#include "employee_role.h"
 #include "passenger_role.h"
+#include "booking.h"
+// #include "employee_role.h"
 #include "specific_flight.h"
 #include "flight_log.h"
 
@@ -24,7 +24,17 @@ int main()
     PassengerRole *passenger2 = new PassengerRole("Amy");
 
     passenger -> makeBooking(new Booking(passenger, specificFlight, 1));
+    passenger2 -> makeBooking(new Booking(passenger2, specificFlight, 2));
     specificFlight -> showInfo();
+    if (specificFlight->getBookings().size() > 0)
+    {
+        cout << "Bookings" << endl;
+        for (const auto b : specificFlight->getBookings())
+        {
+            cout << ">> Seat number " << b->getSeatNumber() << ": " << b->getPassengerRole()->getName() << endl;
+        }
+    } 
+    cout << "-----------------------------" << endl;
 
     return 0;
 }

@@ -3,15 +3,16 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
 
 #include "airplane.h"
 #include "booking.h"
-#include "employee_role.h"
+#include "passenger_role.h"
 #include "flight_log.h"
 
 using namespace std;
 
-class EmployeeRole;
+// class EmployeeRole;
 
 /**
  * @brief class of SpecificFlight
@@ -41,10 +42,10 @@ public:
     airplane->addLinkToSpecificFlight(this);
   }
 
-  vector<EmployeeRole *> findCrewMember()
-  {
-    return crewMembers;
-  }
+  // vector<EmployeeRole *> findCrewMember()
+  // {
+  //   return crewMembers;
+  // }
 
   void addLinkToBooking(Booking *booking)
   {
@@ -64,18 +65,22 @@ public:
       cout << ">> Arrival Time: " << flightLog->getArrivalTime() << endl;
     }
     if(bookings.size() > 0) {
-      cout << "Bookings" << endl;
-      for(int i = 0; i < bookings.size(); i++) {
-        cout << ">> Seat number " << bookings[i]->getSeatNumber() << ": " << bookings[i]->getPassengerRole() << endl;
-      }
+    //   cout << "Bookings" << endl;
+    //   for(const auto b : bookings) {
+    //     p = b->getPassengerRole();
+    //     cout << ">> Seat number " << b->getSeatNumber() << ": " << p->getName() << endl;
+    //   }
+    // cout << "-----------------------------" << endl;
+    } else {
+      cout << "-----------------------------" << endl;
     }
-    cout << "-----------------------------" << endl;
   }
+  vector<Booking *> getBookings() const { return bookings; }
 
 private:
   string flightID;
   Airplane *airplane;
-  vector<EmployeeRole *> crewMembers;
+  // vector<EmployeeRole *> crewMembers;
   vector<Booking *> bookings;
   FlightLog *flightLog;
 };

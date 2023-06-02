@@ -12,10 +12,11 @@ using namespace std;
  * @brief class of PassengerRole extends from PersonRole
  */
 class PassengerRole {
- public:
-  
+public:  
   // constructor
   PassengerRole(string name) : name{name}{}
+  friend class Booking;
+  friend class SpecificFlight;
 
   string getName() const { return name; }
   void makeBooking(Booking* booking) {
@@ -24,7 +25,7 @@ class PassengerRole {
   }
   
 
- private:
+private:
   string name;
   vector<Booking*> bookings;
   void addLinkToBooking(Booking* booking) {
