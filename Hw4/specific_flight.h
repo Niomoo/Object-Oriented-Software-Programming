@@ -4,7 +4,9 @@
 #include <string>
 #include <vector>
 
+#include "airplane.h"
 #include "booking.h"
+#include "employee_role.h"
 #include "flight_log.h"
 
 using namespace std;
@@ -18,14 +20,8 @@ class EmployeeRole;
 class SpecificFlight
 {
 public:
-  SpecificFlight(string flightNumber, string origin, string destination,string departureTime, string arrivalTime)
-  {
-    this->flightNumber = flightNumber;
-    this->origin = origin;
-    this->destination = destination;
-    this->departureTime = departureTime;
-    this->arrivalTime = arrivalTime;
-  }
+  SpecificFlight(string flightID)
+  : flightID{flightID} {}
 
   void specifyAirplane(Airplane *airplane)
   {
@@ -33,10 +29,9 @@ public:
     airplane->addLinkToSpecificFlight(this);
   }
 
-  void createFlightLog()
+  void createFlightLog(FlightLog* flightLog)
   {
-    FlightLog *flightLog = new FlightLog(this);
-    flightLogs.push_back(flightLog);
+    this->flightLog = flightLog;    
   }
 
   void changeAirplane(Airplane *airplane)
@@ -56,16 +51,33 @@ public:
     bookings.push_back(booking);
   }
 
+  void showInfo() {
+    cout << "Flight ID" << endl << ">> " << flightID << endl;
+    if(airplane != nullptr) {
+      cout << "Airplane" << endl << ">> " << airplane->getAirplane() << endl;
+    }
+    if(flightLog != nullptr) {  
+      cout << "Flight Log" << endl;
+      cout << ">> Origin: " << flightLog->getOrigin() << endl;
+      cout << ">> Destination: " << flightLog->getDestination() << endl;
+      cout << ">> Departure Time: " << flightLog->getDepartureTime() << endl;
+      cout << ">> Arrival Time: " << flightLog->getArrivalTime() << endl;
+    }
+    if(bookings.size() > 0) {
+      cout << "Bookings" << endl;
+      for(int i = 0; i < bookings.size(); i++) {
+        cout << ">> Seat number " << bookings[i]->getSeatNumber() << ": " << bookings[i]->getPassengerRole() << endl;
+      }
+    }
+    cout << "-----------------------------" << endl;
+  }
+
 private:
-  string flightNumber;
-  string origin;
-  string destination;
-  string departureTime;
-  string arrivalTime;
+  string flightID;
   Airplane *airplane;
   vector<EmployeeRole *> crewMembers;
   vector<Booking *> bookings;
-  vector<FlightLog *> flightLogs;
+  FlightLog *flightLog;
 };
 
 #endif /* SPECIFIC_FLIGHT_H */

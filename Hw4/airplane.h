@@ -14,7 +14,9 @@ class SpecificFlight;
  */
 class Airplane {
 public:
-  Airplane(string flightID) : flightID {flightID} { }
+  Airplane(string airplane) : airplane {airplane} { }
+
+  string getAirplane() { return airplane; }
   void addLinkToSpecificFlight(SpecificFlight *flight)
   {
     specificFlights.push_back(flight);
@@ -30,7 +32,7 @@ public:
   }
 
 private:
-  string flightID;
+  string airplane;
   vector<SpecificFlight *> specificFlights;
 };
 

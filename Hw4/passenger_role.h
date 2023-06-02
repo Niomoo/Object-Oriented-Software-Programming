@@ -15,25 +15,20 @@ class PassengerRole {
  public:
   
   // constructor
-  PassengerRole() {}
-  ~PassengerRole() {
-    for (auto& b : bookings) {
-      delete b;
-    }
-  }
+  PassengerRole(string name) : name{name}{}
 
+  string getName() const { return name; }
   void makeBooking(Booking* booking) {
-    bookings.emplace_back(booking);
-    booking->linkPassengerRole(this);
+    booking->getSpecificFlight()->addLinkToBooking(booking);
+    booking->getPassengerRole()->addLinkToBooking(booking);
   }
-
+  
 
  private:
-  vector<Booking*> bookings{};
-  Booking* addLinkToBooking(SpecificFlight* specific_flight, int seatNumber) {
-    Booking* b = new Booking(seatNumber);
-    this->makeBooking(b);
-    return b;
+  string name;
+  vector<Booking*> bookings;
+  void addLinkToBooking(Booking* booking) {
+    bookings.push_back(booking);
   }
 };
 

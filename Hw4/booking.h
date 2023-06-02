@@ -6,20 +6,20 @@ class SpecificFlight;
 
 class Booking {
  public:
-  Booking(int seatNumber) : seatNumber{seatNumber} {}
-  void linkPassengerRole(PassengerRole* passenger) {
+  Booking(PassengerRole* passenger, SpecificFlight* flight, int seatNumber) {
     this->passenger = passenger;
+    this->flight = flight;
+    this->seatNumber = seatNumber;
   }
-  void linkSpecificFlight(SpecificFlight* specific_flight) {
-    this->specific_flight = specific_flight;
-  }
-  SpecificFlight* getSpecificFlight() const { return specific_flight; }
+
+  PassengerRole* getPassengerRole() const { return passenger; }
+  SpecificFlight* getSpecificFlight() const { return flight; }
   int getSeatNumber() const { return seatNumber; }
 
  private:
   int seatNumber;
   PassengerRole* passenger{nullptr};
-  SpecificFlight* specific_flight{nullptr};
+  SpecificFlight* flight{nullptr};
 };
 
 #endif /* BOOKING_H */

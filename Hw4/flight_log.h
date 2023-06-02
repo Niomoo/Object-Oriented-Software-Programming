@@ -1,30 +1,24 @@
 #ifndef FLIGHTLOG_H
 #define FLIGHTLOG_H
 
-class PassengerRole;
 class SpecificFlight;
 
 class FlightLog {
 public:
-    FlightLog(SpecificFlight *flight)
-    {
-        this->flightNumber = flight->flightNumber;
-        this->origin = flight->origin;
-        this->destination = flight->destination;
-        this->departureTime = flight->departureTime;
-        this->arrivalTime = flight->arrivalTime;
-        this->airplane = flight->airplane;
-        this->specificFlight = flight;
-    }
+    FlightLog(string origin, string destination, string departureTime, string arrivalTime)
+    : origin{ origin }, destination{ destination }, departureTime{ departureTime }, arrivalTime{ arrivalTime }
+    {}
 
+    string getOrigin() { return origin; }
+    string getDestination() { return destination; }
+    string getDepartureTime() { return departureTime; }
+    string getArrivalTime() { return arrivalTime; }
+    
 private:
-    string flightNumber;
     string origin;
     string destination;
     string departureTime;
     string arrivalTime;
-    Airplane *airplane;
-    SpecificFlight *specificFlight;
 };
 
 #endif /* FLIGHTLOG_H */
