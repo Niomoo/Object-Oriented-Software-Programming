@@ -19,7 +19,10 @@ class EmployeeRole {
 
   // return the job of the employee
   string getName() { return name; }
-
+  void addSpecificFlight(SpecificFlight* flight) {
+    this->specific_flights.push_back(flight);
+    flight->addEmployeeRole(this);
+  }
 
  private:
   string name;

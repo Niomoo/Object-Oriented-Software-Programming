@@ -1,8 +1,8 @@
 #include "airplane.h"
 #include "passenger_role.h"
 #include "booking.h"
-// #include "employee_role.h"
 #include "specific_flight.h"
+#include "employee_role.h"
 #include "flight_log.h"
 
 using namespace std;
@@ -23,10 +23,19 @@ int main()
     PassengerRole *passenger = new PassengerRole("John");
     PassengerRole *passenger2 = new PassengerRole("Amy");
 
+    EmployeeRole *employee = new EmployeeRole("Tom");
+    EmployeeRole *employee2 = new EmployeeRole("Mary");
+    EmployeeRole *employee3 = new EmployeeRole("Jack");
+
     passenger -> makeBooking(new Booking(passenger, specificFlight, 1));
     passenger2 -> makeBooking(new Booking(passenger2, specificFlight, 2));
+    
+    employee -> addSpecificFlight(specificFlight);
+    employee2 -> addSpecificFlight(specificFlight);
+    employee3 -> addSpecificFlight(specificFlight);
+
     specificFlight -> showInfo();
-    if (specificFlight->getBookings().size() > 0)
+    if(specificFlight -> getBookings().size() > 0)
     {
         cout << "Bookings" << endl;
         for (const auto b : specificFlight->getBookings())
@@ -34,7 +43,13 @@ int main()
             cout << ">> Seat number " << b->getSeatNumber() << ": " << b->getPassengerRole()->getName() << endl;
         }
     } 
-    cout << "-----------------------------" << endl;
+    if(specificFlight -> findCrewMember().size() > 0) {
+      cout << "CrewMembers\n>> ";
+      for(const auto c : specificFlight -> findCrewMember()) {
+        cout << c->getName() << " ";
+      }
+      cout << "\n-----------------------------" << endl;
+    }
 
     return 0;
 }

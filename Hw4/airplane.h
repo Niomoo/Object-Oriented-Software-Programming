@@ -17,6 +17,7 @@ public:
   Airplane(string airplane) : airplane {airplane} { }
 
   string getAirplane() { return airplane; }
+  vector<SpecificFlight *> getSpecificFlights() { return specificFlights; }
   void addLinkToSpecificFlight(SpecificFlight *flight)
   {
     specificFlights.push_back(flight);
