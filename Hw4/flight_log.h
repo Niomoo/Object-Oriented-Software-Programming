@@ -3,8 +3,16 @@
 
 class SpecificFlight;
 
+/**
+ * @brief class of FlightLog
+ * @param origin - origin of the flight
+ * @param destination - destination of the flight
+ * @param departureTime - departure time of the flight
+ * @param arrivalTime - arrival time of the flight
+*/
 class FlightLog {
 public:
+    // constructor
     FlightLog(string origin, string destination, string departureTime, string arrivalTime)
     : origin{ origin }, destination{ destination }, departureTime{ departureTime }, arrivalTime{ arrivalTime }
     {}

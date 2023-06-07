@@ -4,8 +4,14 @@
 class SpecificFlight;
 class PassengerRole;
 
+/**
+ * @brief class of Booking
+ * @param passenger - passenger who makes the booking
+ * @param flight - specificFlight of the booking
+*/
 class Booking {
  public:
+  // constructor
   Booking(PassengerRole* passenger, SpecificFlight* flight, int seatNumber) {
     this->passenger = passenger;
     this->flight = flight;

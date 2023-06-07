@@ -2,7 +2,7 @@
 ## Problem
 Design a flight booking system using object-oriented programming.
 ### Class Diagram
-![](https://i.imgur.com/GRomGFN.png)
+![](https://hackmd.io/_uploads/SJMmVwTI3.png)
 ## Description
 ### Objects
 - Airplane
@@ -27,8 +27,16 @@ Design a flight booking system using object-oriented programming.
 
 ## Results
 ### Flight details
-![](https://i.imgur.com/OLfzXmJ.png)
-### Employee details
-![](https://i.imgur.com/ZI3BWOi.png)
-### Booking details
-![](https://i.imgur.com/j8YpTD3.png)
+- Show flight details for specific flight T1-2362 and T2-1469.
+![](https://hackmd.io/_uploads/B1fRE_T83.png)
+- Show passenger booking details for all passengers.
+![](https://hackmd.io/_uploads/S1WMySuTUh.png)
+- Show employee working details for all employees.
+![](https://hackmd.io/_uploads/Synyr_6L3.png)
+### Change airplane
+- Show flight details after T1-2362 changing to airplane CI87.
+![](https://hackmd.io/_uploads/BkrgBOpLn.png)
+- Show passenger details after T1-2362 changing to airplane CI87.
+![](https://hackmd.io/_uploads/rkb-rOT83.png)
+- Show employee details after T1-2362 changing to airplane CI87.
+![](https://hackmd.io/_uploads/SJwWHupI2.png)
