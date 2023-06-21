@@ -15,13 +15,14 @@ public class MockDB {
     public ArrayList<Student> students = new ArrayList<Student>(){
         {
             // Add student users.
-            add(new Student(0, "Alice"));
-            add(new Student(1, "Bob"));
-            add(new Student(2, "Cindy"));
-            add(new Student(3, "Linda"));
-            add(new Student(4, "Jessie"));
-            add(new Student(5, "Tony"));
-            add(new Student(6, "Peter"));
+            add(new Student(0, "Alice", 0));
+            add(new Student(1, "Bob", 0));
+            add(new Student(2, "Cindy", 0));
+            add(new Student(3, "Linda", 0));
+            add(new Student(4, "Jessie", 0));
+            add(new Student(5, "Tony", 0));
+            add(new Student(6, "Peter", 1));
+            add(new Student(7, "Oliver", 1));
         }
     };
 
@@ -46,8 +47,6 @@ public class MockDB {
         Student Cindy = (Student) students.get(2);
         Student Linda = (Student) students.get(3);
         Student Jessie = (Student) students.get(4);
-        Student Tony = (Student) students.get(5);
-        Student Peter = (Student) students.get(6);
 
         Course dsCourse = (Course) courses.get(0);
         Course algoCourse = (Course) courses.get(1);        
@@ -55,7 +54,7 @@ public class MockDB {
         Course icCourse = (Course) courses.get(3);
         Course ooseCourse = (Course) courses.get(4);
 
-        // Set algorithms as pre-requests of oose.
+        // Set prerequisites of courses.
         algoCourse.setPreRequests(new ArrayList<>(){{
             add(dsCourse);
         }});
@@ -64,7 +63,7 @@ public class MockDB {
             add(osCourse);
         }});
 
-        // Set Alice passed algorithms.
+        // Set passed courses.
         StudentService.passCourse(Alice, dsCourse);
         StudentService.passCourse(Bob, dsCourse);
         StudentService.passCourse(Bob, algoCourse);
@@ -77,7 +76,7 @@ public class MockDB {
         StudentService.passCourse(Jessie, dsCourse);        
         StudentService.passCourse(Jessie, algoCourse);
 
-        // Set Alice taken linear algebra.
+        // Set taken courses for the registration systems
         try {
             StudentService.takeCourse(Alice, icCourse);
             StudentService.takeCourse(Cindy, ooseCourse);

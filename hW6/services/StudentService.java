@@ -1,10 +1,7 @@
 package services;
 
 import models.course.Course;
-import models.exceptions.AlreadyTakenException;
-import models.exceptions.CourseException;
-import models.exceptions.IsFullException;
-import models.exceptions.NotPassedException;
+import models.exceptions.*;
 import models.users.Student;
 
 /**
@@ -45,15 +42,17 @@ public class StudentService {
                 "--------------------\n"
             );
         }
-        if (!checkPreRequests(student, course) ) {
-            throw new NotPassedException(
-                "The student has not passed the pre-requests!\n" +
-                "--------------------\n" + 
-                student.getInfoString() + "\n" +
-                "--------------------\n" + 
-                course.getInfoString() + "\n" +
-                "--------------------\n"
-            );
+        if (!checkPreRequests(student, course)) {
+            if(!checkPermission(student)) {
+                throw new NotPassedException(
+                    "The student has not passed the pre-requests!\n" +
+                    "--------------------\n" + 
+                    student.getInfoString() + "\n" +
+                    "--------------------\n" + 
+                    course.getInfoString() + "\n" +
+                    "--------------------\n"
+                );
+            }
         }
         student.getRegister().add(course);
         course.getStudents().add(student);
@@ -73,6 +72,16 @@ public class StudentService {
             }
         }
         return true;
+    }
+
+    /**
+     * Check if the student has the permission.
+     * 
+     * @param student The student.
+     * @return True if the student has the permission.
+     */
+    public static boolean checkPermission(Student student) {
+        return student.getPermission() == 1;
     }
 
     /**

@@ -8,4 +8,8 @@ public interface StudentRole {
     public abstract void setName(String paramString);
 
     public abstract String getName(); 
+
+    public abstract void setPermission(int paramInt);
+
+    public abstract int getPermission();
 }

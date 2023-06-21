@@ -10,11 +10,14 @@ import models.roles.StudentRole;
  */
 public class Student implements StudentRole {
 
-    // The id of the user.
+    // The id of the student.
     private int id;
 
-    // The name of the user.
+    // The name of the student.
     private String name;
+
+    // The role of the student.
+    private int permission;
 
     // The courses that the student has registered.
     private ArrayList<Course> register = new ArrayList<>();
@@ -22,16 +25,16 @@ public class Student implements StudentRole {
     // The courses that the student has passed.
     private ArrayList<Course> passed = new ArrayList<>();
 
-
     /**
      * The constructor of Student.
      * 
      * @param id The id of the student.
      * @param name The name of the student.
      */
-    public Student(int id, String name) {
+    public Student(int id, String name, int permission) {
         setId(id);
         setName(name);
+        setPermission(permission);
     }
 
     @Override
@@ -52,6 +55,16 @@ public class Student implements StudentRole {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public void setPermission(int paramInt) {
+        permission = paramInt;
+    }
+
+    @Override
+    public int getPermission() {
+        return permission;
     }
 
     @Override

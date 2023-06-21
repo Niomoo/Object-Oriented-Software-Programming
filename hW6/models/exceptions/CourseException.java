@@ -21,8 +21,8 @@ public class CourseException extends Exception {
      * Constructs an {@code CourseException} with the specified detail message
      * and cause.
      *
-     * <p> Note that the detail message associated with {@code cause} is
-     * <i>not</i> automatically incorporated into this exception's detail
+     * Note that the detail message associated with {@code cause} is
+     * not automatically incorporated into this exception's detail
      * message.
      *
      * @param message
