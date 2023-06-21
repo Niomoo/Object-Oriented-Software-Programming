@@ -46,6 +46,7 @@ public class ClientConsole implements ChatIF
     try 
     {
       client= new ChatClient(host, port, this);
+      System.out.println("Client connected to server " + host + " on port " + port + ".");
     } 
     catch(IOException exception) 
     {

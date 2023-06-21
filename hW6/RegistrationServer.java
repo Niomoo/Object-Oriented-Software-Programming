@@ -3,7 +3,15 @@
 // license found at www.lloseng.com 
 
 import java.io.*;
+import java.net.Socket;
+
 import ocsf.server.*;
+
+import data.MockDB;
+import models.course.Course;
+import models.exceptions.CourseException;
+import models.users.Student;
+import services.StudentService;
 
 /**
  * This class overrides some of the methods in the abstract 
@@ -15,7 +23,7 @@ import ocsf.server.*;
  * @author Paul Holden
  * @version July 2000
  */
-public class EchoServer extends AbstractServer 
+public class RegistrationServer extends AbstractServer 
 {
   //Class variables *************************************************
   
@@ -23,7 +31,10 @@ public class EchoServer extends AbstractServer
    * The default port to listen on.
    */
   final public static int DEFAULT_PORT = 5555;
-  
+
+	// The database.
+	private MockDB db = new MockDB();
+
   //Constructors ****************************************************
   
   /**
@@ -31,7 +42,7 @@ public class EchoServer extends AbstractServer
    *
    * @param port The port number to connect on.
    */
-  public EchoServer(int port) 
+  public RegistrationServer(int port) 
   {
     super(port);
   }
@@ -49,33 +60,60 @@ public class EchoServer extends AbstractServer
     (Object msg, ConnectionToClient client)
   {
     System.out.println("Message received: " + msg + " from " + client);
-    String[] num = ((String) msg).split(" ");
-    int num1 = Integer.parseInt(num[0]);
-    int num2 = Integer.parseInt(num[2]);
-    char op = num[1].charAt(0);
-    Double result = 0.0;
-    String output = "";
-    switch(op) {
-      case '1': 
-        result = (double) (num1 + num2); 
-        output = "+";
-        break;
-      case '2':
-        result = (double) (num1 - num2);
-        output = "-";
-        break;
-      case '3':
-        result = (double) (num1 * num2);
-        output = "*";
-        break;
-      case '4':
-        result = Double.valueOf(num1) / Double.valueOf(num2);
-        output = "/";
-        break;
+    String[] message = ((String) msg).split("/");
+    Student student = findStudent(message[0]);
+    Course course = findCourse(message[1]);
+    try {
+      StudentService.takeCourse(student, course);
+      this.sendToAllClients(
+        "Successfully registered!\n" +
+				"---------------------------\n" + 
+				student.getInfoString() + "\n" +
+				"---------------------------\n" + 
+				course.getInfoString() + "\n" +
+				"---------------------------\n"
+      );
+    } catch (CourseException e) {
+      this.sendToAllClients(
+        "Fail to register!\n" + 
+        e.getMessage()
+      );
     }
-    this.sendToAllClients(Integer.toString(num1) + " " + output + " " + Integer.toString(num2) + " = " + result);
   }
-    
+
+  private Student findStudent(String name) {
+    try{
+      for (Student student : db.students) {
+        if (student.getName().equals(name)) {
+          return student;
+        }
+      }
+    } catch (Exception e) {
+      System.out.println("Student not found");
+    }
+    return null;
+  }
+
+  private Course findCourse(String name) {
+    try{
+      for (Course course : db.courses) {
+        if (course.getName().equals(name)) {
+          return course;
+        }
+      }
+    } catch (Exception e) {
+      System.out.println("Course not found");
+    }
+    return null;
+  }
+
+  public MockDB getDb() {
+		return db;
+	}
+
+	public void setDb(MockDB db) {
+		this.db = db;
+	}
   /**
    * This method overrides the one in the superclass.  Called
    * when the server starts listening for connections.
@@ -118,11 +156,12 @@ public class EchoServer extends AbstractServer
       port = DEFAULT_PORT; //Set port to 5555
     }
 	
-    EchoServer sv = new EchoServer(port);
+    RegistrationServer sv = new RegistrationServer(port);
     
     try 
     {
       sv.listen(); //Start listening for connections
+      sv.sendToAllClients("");
     } 
     catch (Exception ex) 
     {
